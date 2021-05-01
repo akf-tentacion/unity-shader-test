@@ -1,4 +1,8 @@
-﻿
+﻿//return 1 if a >= b
+float IsLessEqualThan(float a, float b){
+	return (a - b >= 0)? 1.:0.;
+}
+
 float3 InverseGammaConversion(float3 rgb){
 	float gamma = 1.0 / 2.2;
 	float3 c = rgb;

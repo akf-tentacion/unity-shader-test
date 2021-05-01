@@ -18,6 +18,7 @@
         //カスタムライティング
         #pragma surface surf ToonRamp
         #pragma target 3.0
+        #include "MyMath.cginc"
 
         sampler2D _MainTex;
         float   _MidThreshold,
@@ -37,11 +38,9 @@
         {
             half d = dot(s.Normal, lightDir) * 0.5 + 0.5;
             fixed3 ramp = _Color;
-            if(d < _DarkThreshold){
-                ramp = _DarkColor;
-            }else if(d < _MidThreshold){
-                ramp = _MidColor;
-            }
+            
+            ramp = lerp(ramp,_MidColor,IsLessEqualThan(_MidThreshold,d));
+            ramp = lerp(ramp,_DarkColor,IsLessEqualThan(_DarkThreshold,d));
             fixed4 c;
             c.rgb = s.Albedo * _LightColor0.rgb * ramp;
             c.a = 0;
